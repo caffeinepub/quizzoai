@@ -3,12 +3,12 @@ import Principal "mo:core/Principal";
 import Iter "mo:core/Iter";
 import Time "mo:core/Time";
 import Runtime "mo:core/Runtime";
-import Migration "migration";
+
 import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 
 // Specify data migration function in with-clause
-(with migration = Migration.run)
+
 actor {
   // Core Types
   type TestHistory = {

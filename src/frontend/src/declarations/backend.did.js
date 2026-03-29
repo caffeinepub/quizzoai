@@ -8,10 +8,92 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const idlService = IDL.Service({});
+export const TestHistory = IDL.Record({
+  'date' : IDL.Int,
+  'score' : IDL.Nat,
+  'board' : IDL.Text,
+  'chapter' : IDL.Text,
+  'className' : IDL.Text,
+});
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
+export const Achievement = IDL.Record({
+  'badgeName' : IDL.Text,
+  'earnedDate' : IDL.Int,
+});
+export const UserProfile = IDL.Record({
+  'username' : IDL.Text,
+  'totalTestsTaken' : IDL.Nat,
+  'rank' : IDL.Text,
+  'streaks' : IDL.Nat,
+});
+
+export const idlService = IDL.Service({
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'addAchievement' : IDL.Func([IDL.Text], [], []),
+  'addTestHistory' : IDL.Func([TestHistory], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'deleteTestHistory' : IDL.Func([IDL.Text], [], []),
+  'getAchievements' : IDL.Func([], [IDL.Vec(Achievement)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getTestHistory' : IDL.Func([], [IDL.Vec(TestHistory)], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+});
 
 export const idlInitArgs = [];
 
-export const idlFactory = ({ IDL }) => { return IDL.Service({}); };
+export const idlFactory = ({ IDL }) => {
+  const TestHistory = IDL.Record({
+    'date' : IDL.Int,
+    'score' : IDL.Nat,
+    'board' : IDL.Text,
+    'chapter' : IDL.Text,
+    'className' : IDL.Text,
+  });
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
+  const Achievement = IDL.Record({
+    'badgeName' : IDL.Text,
+    'earnedDate' : IDL.Int,
+  });
+  const UserProfile = IDL.Record({
+    'username' : IDL.Text,
+    'totalTestsTaken' : IDL.Nat,
+    'rank' : IDL.Text,
+    'streaks' : IDL.Nat,
+  });
+  
+  return IDL.Service({
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'addAchievement' : IDL.Func([IDL.Text], [], []),
+    'addTestHistory' : IDL.Func([TestHistory], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'deleteTestHistory' : IDL.Func([IDL.Text], [], []),
+    'getAchievements' : IDL.Func([], [IDL.Vec(Achievement)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getTestHistory' : IDL.Func([], [IDL.Vec(TestHistory)], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  });
+};
 
 export const init = ({ IDL }) => { return []; };

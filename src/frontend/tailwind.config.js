@@ -14,6 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
+        display: ["Bricolage Grotesque", "system-ui", "sans-serif"],
+        body: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
         sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
       },
       colors: {
